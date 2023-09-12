@@ -1,26 +1,11 @@
 import { useState } from 'react'
 import logo from './assets/Tooable-logos_black.png'
 import { BiChevronsLeft } from 'react-icons/bi'
+import { LuListChecks, LuChevronsRight, LuStickyNote } from 'react-icons/lu'
 import { Link, Route, Routes } from 'react-router-dom'
-import { ExtendedLinkProps } from './interfaces'
 import Today from './components/Today'
 import Upcoming from './components/Upcoming'
 import QuickNote from './components/QuickNote'
-
-const links: ExtendedLinkProps[] = [
-  {
-    to: '/',
-    linkName: 'Today',
-  },
-  {
-    to: '/upcoming',
-    linkName: 'Upcoming',
-  },
-  {
-    to: '/quicknote',
-    linkName: 'Quick Note',
-  },
-]
 
 const App: React.FC = (): JSX.Element => {
   const [open, setOpen] = useState(true)
@@ -39,31 +24,75 @@ const App: React.FC = (): JSX.Element => {
           <BiChevronsLeft size={20} />
         </div>
 
-        <div className="flex items-center flex-col">
+        <div className="flex items-center flex-col mb-10">
           <div className="flex flex-row justify-center my-5">
             <img className="w-10 h-10 rounded-lg" src={logo} alt="mainlogo" />
-            &nbsp;
-            {open && <p className="self-center font-mono text-lg">Tooable</p>}
+            {open && (
+              <p className="self-center font-mono text-lg">
+                <Link to="/">Tooable</Link>
+              </p>
+            )}
           </div>
         </div>
 
+        {open && <p className="text-xs">Tasks</p>}
         <nav>
           <ul className="list-none">
-            {links.map((linkdata: ExtendedLinkProps, index) => (
-              <li key={index}>
-                <Link to={linkdata.to}>{linkdata.linkName}</Link>
-              </li>
-            ))}
+            <li>
+              <Link to="/">
+                <div
+                  className={`flex flex-row ${
+                    !open && 'justify-center'
+                  } my-5 hover:text-slate-600`}
+                >
+                  <span className="self-center">
+                    <LuListChecks size={20} />
+                  </span>
+                  {open && <p className="pl-2">Today</p>}
+                </div>
+              </Link>
+            </li>
+            <li>
+              <Link to="/upcoming">
+                <div
+                  className={`flex flex-row ${
+                    !open && 'justify-center'
+                  } my-5 hover:text-slate-600`}
+                >
+                  <span className="self-center">
+                    <LuChevronsRight size={20} />
+                  </span>
+                  {open && <p className="pl-2">Upcoming</p>}
+                </div>
+              </Link>
+            </li>
+            <li>
+              <Link to="/quicknote">
+                <div
+                  className={`flex flex-row ${
+                    !open && 'justify-center'
+                  } my-5 hover:text-slate-600`}
+                >
+                  <span className="self-center">
+                    <LuStickyNote size={20} />
+                  </span>
+                  {open && <p className="pl-2">Quick Notes</p>}
+                </div>
+              </Link>
+            </li>
           </ul>
         </nav>
+
+        {open && <p className="text-xs mt-10">Lists</p>}
         {/**
          * Add Create list UI
          */}
+        {open && <p className="text-xs mt-10">Tags</p>}
+        {/**
+         * Add Create tags UI
+         */}
       </div>
       <div className="p-7 text-2x1 font-semibold flex-1 h-screen">
-        {/**
-         * Create Routes for side nav using react router
-         */}
         <Routes>
           <Route path="/" element={<Today />} />
           <Route path="/upcoming" element={<Upcoming />} />
