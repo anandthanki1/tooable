@@ -1,10 +1,10 @@
 import { useState } from 'react'
 import logo from './assets/Tooable-logos_black.png'
 import { BiChevronsLeft } from 'react-icons/bi'
-import { LuListChecks, LuChevronsRight, LuStickyNote } from 'react-icons/lu'
+import { LuListChecks, LuCalendar, LuStickyNote } from 'react-icons/lu'
 import { Link, Route, Routes } from 'react-router-dom'
 import Today from './components/Today'
-import Upcoming from './components/Upcoming'
+import Calendar from './components/Calendar'
 import QuickNote from './components/QuickNote'
 
 const App: React.FC = (): JSX.Element => {
@@ -53,16 +53,16 @@ const App: React.FC = (): JSX.Element => {
               </Link>
             </li>
             <li>
-              <Link to="/upcoming">
+              <Link to="/calendar">
                 <div
                   className={`flex flex-row ${
                     !open && 'justify-center'
                   } my-5 hover:text-slate-600`}
                 >
                   <span className="self-center">
-                    <LuChevronsRight size={20} />
+                    <LuCalendar size={20} />
                   </span>
-                  {open && <p className="pl-2">Upcoming</p>}
+                  {open && <p className="pl-2">Calendar</p>}
                 </div>
               </Link>
             </li>
@@ -95,7 +95,7 @@ const App: React.FC = (): JSX.Element => {
       <div className="p-7 text-2x1 font-semibold flex-1 h-screen">
         <Routes>
           <Route path="/" element={<Today />} />
-          <Route path="/upcoming" element={<Upcoming />} />
+          <Route path="/calendar" element={<Calendar />} />
           <Route path="/quicknote" element={<QuickNote />} />
           <Route path="*" element={<h2>Not Found</h2>} />
         </Routes>
